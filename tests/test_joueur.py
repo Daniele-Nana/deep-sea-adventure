@@ -10,23 +10,21 @@ class TestJoueur(unittest.TestCase):
     def setUp(self):
         self.joueur = Joueur("Toto", "rouge")
         self.plateau = Plateau()
-        self.plateau.initialiser((2,2,2))
+        # Créer un petit plateau pour les tests
+        valeurs_test = [(1,0), (1,0), (1,1), (1,1), (1,2), (1,2)]  # 6 cases
+        self.plateau.initialiser(valeurs_test)
 
     def test_changer_direction(self):
         self.assertEqual(self.joueur.direction, 1)
         self.joueur.changer_direction()
         self.assertEqual(self.joueur.direction, -1)
         self.assertTrue(self.joueur.a_change_direction)
-        # ne peut pas changer deux fois
         self.joueur.changer_direction()
         self.assertEqual(self.joueur.direction, -1)
 
     def test_reduire_air(self):
-        self.joueur.jetons_tenus.append(Jeton('ruine', 1))
-        self.joueur.jetons_tenus.append(Jeton('ruine', 2))
+        self.joueur.jetons_tenus.append(Jeton('ruine', 1, 1))
+        self.joueur.jetons_tenus.append(Jeton('ruine', 2, 2))
         self.plateau.air = 25
         self.joueur.reduire_air(self.plateau)
         self.assertEqual(self.plateau.air, 23)
-
-if __name__ == '__main__':
-    unittest.main()

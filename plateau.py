@@ -7,30 +7,25 @@ class Plateau:
         self.air = 25
         self.sous_marin_index = 0
 
-    def initialiser(self):
+    def initialiser(self, valeurs=None):
         """
-        Crée 32 jetons ruines dans l'ordre des niveaux :
-        - cases 0 à 7 : niveau 1, valeurs 0,1,2,3 (deux de chaque, mélangées)
-        - cases 8 à 15 : niveau 2, valeurs 4,5,6,7 (deux de chaque, mélangées)
-        - cases 16 à 23 : niveau 3, valeurs 8,9,10,11 (deux de chaque, mélangées)
-        - cases 24 à 31 : niveau 4, valeurs 12,13,14,15 (deux de chaque, mélangées)
+        Crée les jetons ruines.
+        Si valeurs est None, crée les 32 jetons officiels (4 niveaux, valeurs 0-15, deux de chaque).
+        Sinon, utilise la liste de valeurs fournie (chaque élément doit être un tuple (niveau, valeur)).
         """
-        valeurs_par_niveau = [
-            ([0,0,1,1,2,2,3,3]),        # niveau 1
-            ([4,4,5,5,6,6,7,7]),        # niveau 2
-            ([8,8,9,9,10,10,11,11]),    # niveau 3
-            ([12,12,13,13,14,14,15,15]) # niveau 4
-        ]
-        self.cases = []
-        for niveau, valeurs in enumerate(valeurs_par_niveau, start=1):
-            # Mélanger les valeurs de ce niveau
-            valeurs_melangees = valeurs[:]
-            random.shuffle(valeurs_melangees)
-            for val in valeurs_melangees:
-                self.cases.append(Jeton('ruine', niveau, val))
+        if valeurs is None:
+            # Valeurs officielles
+            toutes_valeurs = []
+            for niveau, (debut, fin) in enumerate([(0,3), (4,7), (8,11), (12,15)], start=1):
+                for v in range(debut, fin+1):
+                    toutes_valeurs.append((niveau, v))
+                    toutes_valeurs.append((niveau, v))
+            random.shuffle(toutes_valeurs)
+            self.cases = [Jeton('ruine', niveau, valeur) for niveau, valeur in toutes_valeurs]
+        else:
+            # Pour les tests : on crée les jetons à partir des valeurs fournies
+            self.cases = [Jeton('ruine', niveau, valeur) for (niveau, valeur) in valeurs]
         self.air = 25
-        # Vérification du nombre de cases
-        assert len(self.cases) == 32, f"Erreur : {len(self.cases)} cases créées au lieu de 32"
 
     def est_dans_plateau(self, index):
         return 0 <= index < len(self.cases)
