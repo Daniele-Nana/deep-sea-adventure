@@ -126,6 +126,7 @@ class AffichageGraphique:
         self.air = 0
         self.manche = 0
         self.joueur_courant = None
+        self.label_scores = None
 
         self.couleurs = {
             'rouge': 'red', 'bleu': 'blue', 'vert': 'green', 'jaune': 'yellow',
@@ -172,6 +173,10 @@ class AffichageGraphique:
         self.label_jetons = tk.Label(frame_info, text="", font=('Arial', 12),
                                      bg='darkblue', fg='white')
         self.label_jetons.pack(side=tk.LEFT, padx=20)
+        self.label_scores = tk.Label(frame_info, text="", font=('Arial', 10), bg='darkblue', fg='white')
+        self.label_scores.pack(side=tk.LEFT, padx=20)
+        self.label_valeurs = tk.Label(frame_info, text="", font=('Arial', 10), bg='darkblue', fg='white')
+        self.label_valeurs.pack(side=tk.LEFT, padx=20)
 
         # Canvas redimensionnable
         self.canvas = tk.Canvas(self.fenetre, bg='lightblue', highlightthickness=0)
@@ -313,6 +318,11 @@ class AffichageGraphique:
                                 font=('Arial', 8), anchor='nw', fill='darkblue')
         self.label_info.config(text=f"Air: {self.air}   Manche: {self.manche}")
 
+        # Affichage des scores
+        scores_text = "Scores: " + ", ".join(f"{j.nom}:{j.score_total}" for j in joueurs)
+        if self.label_scores:
+            self.label_scores.config(text=scores_text)
+
     def mettre_a_jour_infos(self, air, manche):
         self.air = air
         self.manche = manche
@@ -324,8 +334,9 @@ class AffichageGraphique:
         if self.label_joueur:
             self.label_joueur.config(text=f"Tour: {joueur.nom} ({joueur.couleur})")
         if self.label_jetons:
-            jetons = len(joueur.jetons_tenus)
-            self.label_jetons.config(text=f"Jetons tenus: {jetons}")
+            nb_jetons = len(joueur.jetons_tenus)
+            somme = sum(j.valeur for j in joueur.jetons_tenus)
+            self.label_jetons.config(text=f"Jetons tenus: {nb_jetons} (valeur: {somme})")
 
     def demander_choix_rentrer(self, joueur):
         self.mettre_a_jour_joueur(joueur)
@@ -404,3 +415,14 @@ class AffichageGraphique:
         if self.fenetre:
             self.fenetre.quit()
             self.fenetre.destroy()
+
+    def afficher_scores(self, joueurs):
+        """Met à jour l'affichage des scores."""
+        scores_text = "Scores: " + ", ".join(f"{j.nom}:{j.score_total}" for j in joueurs)
+        if self.label_scores:
+            self.label_scores.config(text=scores_text)
+
+    def afficher_jetons_tenus(self, joueurs):
+        tenus_text = "Valeurs tenues: " + ", ".join(f"{j.nom}: {sum(jeton.valeur for jeton in j.jetons_tenus)}" for j in joueurs)
+        if hasattr(self, 'label_valeurs') and self.label_valeurs:
+            self.label_valeurs.config(text=tenus_text)

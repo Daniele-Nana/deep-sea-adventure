@@ -83,6 +83,7 @@ class Jeu:
         self.deplacer_joueur(joueur, deplacement)
 
         self.affichage.afficher_plateau(self.plateau, self.joueurs)
+        self.affichage.afficher_scores(self.joueurs)
 
         # Étape 4 : Action
         self.effectuer_action(joueur)
@@ -92,6 +93,7 @@ class Jeu:
             print(f"{joueur.nom} est rentré au sous-marin !")
 
         self.affichage.afficher_plateau(self.plateau, self.joueurs)
+        self.affichage.afficher_scores(self.joueurs)
 
     def deplacer_joueur(self, joueur, pas):
         pos = joueur.position
@@ -176,7 +178,11 @@ class Jeu:
             points = sum(jeton.points for jeton in j.jetons_tenus)
             j.score_total += points
             print(f"{j.nom} rentre avec {len(j.jetons_tenus)} jetons, "
-                  f"gagne {points} points. Total: {j.score_total}")
+                f"gagne {points} points. Total: {j.score_total}")
+
+        # Affichage des scores après la mise à jour
+        if hasattr(self.affichage, 'afficher_scores'):
+            self.affichage.afficher_scores(self.joueurs)
 
         if non_rentres:
             print("Placement des jetons perdus :")

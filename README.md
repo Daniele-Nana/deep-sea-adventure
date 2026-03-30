@@ -4,27 +4,27 @@ Implémentation en Python du jeu de société **Deep Sea Adventure** (Oink Games
 
 ## Fonctionnalités
 
-- 🎮 **Moteur de jeu complet** – Respecte les règles officielles :
+- **Moteur de jeu complet** – Respecte les règles officielles :
   - 32 jetons ruines (4 niveaux, valeurs 0 à 15)
   - Plateau en serpent pour une meilleure lisibilité
   - Réduction d'air en fonction des trésors tenus
   - Déplacement avec saut par‑dessus les autres pions
   - Actions : ramasser, poser, ne rien faire
   - Fin de manche : comptage des points et perte des trésors (empilement par 3)
-- 🖥️ **Deux modes d'affichage** :
+- **Deux modes d'affichage** :
   - Console (affichage ASCII)
   - Graphique (Tkinter) avec fond marin, cases colorées, pions avec initiales
-- 🤖 **Intelligences artificielles** (3 comportements) :
+- **Intelligences artificielles** (3 comportements) :
   - Aléatoire
   - Prudente
   - Courageuse
-- 💾 **Sauvegarde / Chargement** :
+- **Sauvegarde / Chargement** :
   - Nombreuses sauvegardes possibles (nom personnalisé)
   - Dossier `saves/` automatique
   - Chargement depuis le menu principal
-- 🔁 **Recommencer une partie** avec les mêmes paramètres (menu Fichier)
-- ❌ **Interruption** par `Ctrl+C` (avec sauvegarde optionnelle)
-- 🧪 **Tests unitaires** avec `unittest`
+- **Recommencer une partie** avec les mêmes paramètres (menu Fichier)
+- **Interruption** par `Ctrl+C` (avec sauvegarde optionnelle)
+- **Tests unitaires** avec `unittest`
 
 ## Prérequis
 
