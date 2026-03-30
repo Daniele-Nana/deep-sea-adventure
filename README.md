@@ -1,8 +1,5 @@
 # Deep Sea Adventure
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-
 Implémentation en Python du jeu de société **Deep Sea Adventure** (Oink Games). Le jeu se joue de 2 à 6 joueurs qui explorent les fonds marins pour ramener le plus de trésors, tout en gérant une réserve d'air commune.
 
 ## Fonctionnalités
@@ -119,8 +116,4 @@ python -m unittest discover tests
 
 Jeu original : Deep Sea Adventure – Oink Games
 
-Implémentation Python : Daniele-Nana
-
-## Licence
-
-Ce projet est sous licence MIT – voir le fichier LICENSE pour plus de détails.
+Implémentation Python : Daniele Nana
